@@ -11,11 +11,11 @@ class Cardconsession extends StatefulWidget {
 }
 
 class _CardconsessionState extends State<Cardconsession> {
-  List complaints = [];
+  List consession = [];
   bool isLoading = true;
   String errorMessage = '';
 
-  Future<void> fetchComplaints() async {
+  Future<void> fetchconsession() async {
     // print(card_number);
     Uri url_ = Uri.parse(url + 'fetch_consession/');
 
@@ -27,16 +27,16 @@ class _CardconsessionState extends State<Cardconsession> {
     final jsonData = json.decode(responseJson);
 
     setState(() {
-      complaints = jsonData;
+      consession = jsonData;
     }); // Update UI if needed
-    print(complaints);
+    print(consession);
   }
 
   @override
   void initState() {
     super.initState();
     print("--------------");
-    fetchComplaints();
+    fetchconsession();
   }
 
   @override
@@ -47,8 +47,8 @@ class _CardconsessionState extends State<Cardconsession> {
           children: [
     
               ListTile(
-                title: Text(complaints[0]['card_number']),
-                subtitle: Text(complaints[0]['card_number']),
+                title: Text(consession[0]['card_number']),
+                subtitle: Text(consession[0]['card_number']),
               )
           ],
         ));
