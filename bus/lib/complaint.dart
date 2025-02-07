@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bus/variables.dart';
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+
 
 class Complaint extends StatefulWidget {
   const Complaint({super.key});
@@ -38,7 +40,23 @@ class _ComplaintState extends State<Complaint> {
       print('Failed to fetch orders. Status code: ${response.statusCode}');
     }
   }
+  File? _profileImage;
+  File? _signatureImage;
 
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage(ImageSource source, bool isProfile) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        if (isProfile) {
+          _profileImage = File(pickedFile.path);
+        } else {
+          _signatureImage = File(pickedFile.path);
+        }
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +67,40 @@ class _ComplaintState extends State<Complaint> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          
           children: [
+         GestureDetector(
+                  onTap: () async {
+                    await _pickImage(
+                        ImageSource.gallery, true); // true for profile image
+                  },
+                  child: Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white, // Solid white background
+                      border: Border.all(
+                        color:
+                            Color.fromARGB(255, 249, 241, 241), // Black border
+                        width: 2.0, // Border thickness
+                      ),
+                    ),
+                    child: ClipOval(
+                      child: _profileImage != null
+                          ? Image.file(
+                              _profileImage!,
+                              fit: BoxFit.cover,
+                            )
+                          : Icon(
+                              Icons.add_a_photo,
+                              size: 30,
+                              color: Colors.black, // Black icon color
+                            ),
+                    ),
+                  ),
+                ),   
+                SizedBox(height: 20,) ,
             TextField(
               controller: titleController,
               decoration: InputDecoration(
