@@ -41,12 +41,12 @@ class _TrackComplaintsState extends State<TrackComplaints> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Complaints")),
-        body: ListView(
+        body:ListView(
           children: [
             for (var i in complaints)
               ListTile(
-                title: Text(i['complaint_Title']),
-                subtitle: Text(i['complaint_description']),
+                title: Text(i['complaint_Title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                subtitle: Text(i['complaint_description'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
               )
           ],
         ));
