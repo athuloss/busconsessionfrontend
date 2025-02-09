@@ -46,9 +46,12 @@ class _CardconsessionState extends State<Cardconsession> {
         body: ListView(
           children: [
     
-              ListTile(
-                title: Text(consession[0]['card_number']),
-                subtitle: Text(consession[0]['card_number']),
+              Column(
+                children: [         
+                  Text(consession[0]['student_name']),
+                  Text(consession[0]['card_number'],style: TextStyle(),),
+                  
+                ],
               )
           ],
         ));

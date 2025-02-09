@@ -1,11 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:bus/login.dart';
 import 'package:bus/variables.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Consession extends StatefulWidget {
@@ -15,47 +13,17 @@ class Consession extends StatefulWidget {
   State<Consession> createState() => _ConsessionState();
 }
 
-var fullname = TextEditingController();
-var address = TextEditingController();
-var age = TextEditingController();
-var collegename = TextEditingController();
-var from = TextEditingController();
-var to = TextEditingController();
-Future<void> sendData(BuildContext context) async {
-  Uri url_ = Uri.parse(url + 'add_student_details/');
-
-  var request = http.MultipartRequest('POST', url_);
-  request.fields['student_name'] = fullname.text;
-  request.fields['address'] = address.text;
-  request.fields['date_of_birth'] = age.text; // Ensure correct format
-  request.fields['education_center_name'] = collegename.text;
-  request.fields['travelling_from'] = from.text;
-  request.fields['travelling_to'] = to.text; // Fixed incorrect mapping
-
-  var response = await request.send(); // Uncommented API call
-  
-  if (response.statusCode == 200) {
-    final responseJson = await response.stream.bytesToString();
-    final jsonData = json.decode(responseJson);
-
-    if (jsonData['success'] == 'yes') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Loginpage()),
-      );
-    } else {
-      print('Failed: ${jsonData['message']}'); // Better error logging
-    }
-  } else {
-    print('Failed to send data. Status code: ${response.statusCode}');
-  }
-}
-
 class _ConsessionState extends State<Consession> {
   File? _profileImage;
   File? _signatureImage;
-
   final ImagePicker _picker = ImagePicker();
+
+  var fullname = TextEditingController();
+  var address = TextEditingController();
+  var age = TextEditingController();
+  var collegename = TextEditingController();
+  var from = TextEditingController();
+  var to = TextEditingController();
 
   Future<void> _pickImage(ImageSource source, bool isProfile) async {
     final pickedFile = await _picker.pickImage(source: source);
@@ -67,6 +35,59 @@ class _ConsessionState extends State<Consession> {
           _signatureImage = File(pickedFile.path);
         }
       });
+    }
+  }
+
+  Future<void> sendData(BuildContext context) async {
+    Uri url_ = Uri.parse(url + 'add_student_details/');
+
+    var request = http.MultipartRequest('POST', url_);
+
+    request.fields['student_name'] = fullname.text;
+    request.fields['address'] = address.text;
+    request.fields['date_of_birth'] = age.text;
+    request.fields['education_center_name'] = collegename.text;
+    request.fields['travelling_from'] = from.text;
+    request.fields['travelling_to'] = to.text;
+
+    if (_profileImage != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'profile_image',
+          _profileImage!.path,
+        ),
+      );
+    }
+
+    if (_signatureImage != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'signature_image',
+          _signatureImage!.path,
+        ),
+      );
+    }
+
+    try {
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        final responseJson = await response.stream.bytesToString();
+        final jsonData = json.decode(responseJson);
+
+        if (jsonData['success'] == 'yes') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Loginpage()),
+          );
+        } else {
+          print('Error: ${jsonData['message']}');
+        }
+      } else {
+        print('Failed to send data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending data: $e');
     }
   }
 
