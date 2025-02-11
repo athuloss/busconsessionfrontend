@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:bus/frontpage.dart';
 import 'package:bus/login.dart';
 import 'package:bus/variables.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +69,8 @@ class _ConsessionState extends State<Consession> {
       );
     }
 
+    var response = await request.send();
     try {
-      var response = await request.send();
-
       if (response.statusCode == 200) {
         final responseJson = await response.stream.bytesToString();
         final jsonData = json.decode(responseJson);
@@ -78,7 +78,7 @@ class _ConsessionState extends State<Consession> {
         if (jsonData['success'] == 'yes') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Loginpage()),
+            MaterialPageRoute(builder: (context) => Frontpage()),
           );
         } else {
           print('Error: ${jsonData['message']}');
