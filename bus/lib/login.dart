@@ -52,8 +52,8 @@ class _LoginpageState extends State<Loginpage> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+        
           children: [
             Center(
                 child: Image.asset(
