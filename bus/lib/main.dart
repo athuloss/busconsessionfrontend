@@ -4,6 +4,7 @@ import 'package:bus/calculator.dart';
 import 'package:bus/card.dart';
 import 'package:bus/complaint.dart';
 import 'package:bus/consession_aaply.dart';
+import 'package:bus/frontpage.dart';
 import 'package:bus/home.dart';
 import 'package:bus/trackcomplaint.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor:Colors.blue
       ),
-      home:const Cardconsession(),
+      home:const Frontpage(),
 
     );
   }

@@ -55,8 +55,8 @@ class _SignupState extends State<Signup> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+       
           children: [
             // Padding(
             //   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -109,6 +109,7 @@ class _SignupState extends State<Signup> {
               ),
             ),
             TextField(
+               obscureText: true,
               controller: password,
               decoration: InputDecoration(
                 prefixIcon: Icon(

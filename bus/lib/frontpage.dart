@@ -1,8 +1,10 @@
 import 'package:bus/card.dart';
 import 'package:bus/complaint.dart';
 import 'package:bus/consession_aaply.dart';
+import 'package:bus/login.dart';
 import 'package:bus/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ionicons/ionicons.dart';
 import 'dart:math';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -35,7 +37,7 @@ class _FrontpageState extends State<Frontpage> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           child: ListView(
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
@@ -79,14 +81,22 @@ class _FrontpageState extends State<Frontpage> {
                       SizedBox(
                         width: 10,
                       ),
-                      CircleAvatar(
-                          radius: 15,
-                          backgroundColor: Color.fromARGB(255, 249, 245, 245),
-                          child: Icon(
-                            Ionicons.log_out,
-                            size: 18,
-                            color: Color(0xFF38A3A5),
-                          )),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Loginpage()));
+                        },
+                        child: CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Color.fromARGB(255, 249, 245, 245),
+                            child: Icon(
+                              Ionicons.log_out,
+                              size: 18,
+                              color: Color(0xFF38A3A5),
+                            )),
+                      ),
                     ],
                   )
                 ],
@@ -481,20 +491,20 @@ class _FrontpageState extends State<Frontpage> {
                   SizedBox(
                     height: 5,
                   ),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
                           Container(
-                            width:MediaQuery.of(context).size.width *0.94,
+                            width: MediaQuery.of(context).size.width * 0.94,
                             child: Text(
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w500),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                             ),
                           ),
                         ],
@@ -569,21 +579,23 @@ class _FrontpageState extends State<Frontpage> {
                   SizedBox(
                     height: 5,
                   ),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            width:MediaQuery.of(context).size.width *0.94,
+                            width: MediaQuery.of(context).size.width * 0.94,
                             child: Text(
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                               style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.w500,),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                             ),
                           ),
                           SizedBox(
