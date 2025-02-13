@@ -13,13 +13,13 @@ class _CalculatorState extends State<Calculator> {
 
   double cfare() {
     double dis = double.tryParse(distanceCtrl.text) ?? 0;
-    return (dis / 2.5) * 5;
+    return (dis / 2.5) * 1;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text("Fare Calculator",
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
@@ -38,31 +38,41 @@ class _CalculatorState extends State<Calculator> {
                 hintText: "Enter Kilometer",
                 hintStyle: TextStyle(fontSize: 15),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1,    color: Color.fromARGB(255, 220, 218, 218),),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: Color.fromARGB(255, 220, 218, 218),
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color:Color.fromARGB(255, 220, 218, 218),),
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: Color.fromARGB(255, 220, 218, 218),
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 20), // Space between TextField and Button
             ElevatedButton(
-               style: ButtonStyle(
-                        padding: WidgetStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 70, vertical: 16)),
-                        backgroundColor:
-                            WidgetStateProperty.all(Color(0xFF38A3A5)),
-                        shape: WidgetStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)))),
+              style: ButtonStyle(
+                  padding: WidgetStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 70, vertical: 16)),
+                  backgroundColor: WidgetStateProperty.all(Color(0xFF38A3A5)),
+                  shape: WidgetStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)))),
               onPressed: () {
                 setState(() {
                   data = "Total Fare: ₹${cfare().toStringAsFixed(2)}";
                 });
               },
-              child: Text("Calculate",style: TextStyle( fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: Color.fromARGB(255, 255, 255, 255),),),
+              child: Text(
+                "Calculate",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+              ),
             ),
             SizedBox(height: 20), // Space between Button and Result Text
             Text(

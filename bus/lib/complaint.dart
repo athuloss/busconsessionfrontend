@@ -32,7 +32,7 @@ class _ComplaintState extends State<Complaint> {
     // Check if _profileImage is not null before accessing its path
     if (_profileImage != null && _profileImage!.path.isNotEmpty) {
       request.files.add(
-        await http.MultipartFile.fromPath('image', _profileImage!.path),
+        await http.MultipartFile.fromPath('complaint_photo', _profileImage!.path),
       );
     }
 
