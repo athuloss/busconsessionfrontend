@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor:Colors.blue
       ),
-      home:const Frontpage(),
+      home:const Bottomnav(),
 
     );
   }

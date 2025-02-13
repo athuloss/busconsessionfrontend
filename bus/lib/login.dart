@@ -53,7 +53,6 @@ class _LoginpageState extends State<Loginpage> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(
-        
           children: [
             Center(
                 child: Image.asset(
@@ -81,6 +80,7 @@ class _LoginpageState extends State<Loginpage> {
               height: 20,
             ),
             TextField(
+              obscureText: true,
               controller: password,
               decoration: InputDecoration(
                 prefixIcon: Icon(

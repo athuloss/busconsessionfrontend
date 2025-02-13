@@ -1,3 +1,4 @@
+import 'package:bus/calculator.dart';
 import 'package:bus/card.dart';
 import 'package:bus/complaint.dart';
 import 'package:bus/consession_aaply.dart';
@@ -41,7 +42,7 @@ class _FrontpageState extends State<Frontpage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    children: [
+                    children: const [
                       CircleAvatar(
                         backgroundImage: AssetImage(
                             "asset/images/7799e37add3fc4206b003e9807c302e1.jpg"),
@@ -341,7 +342,7 @@ class _FrontpageState extends State<Frontpage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Cardconsession()),
+                            builder: (context) => Calculator()),
                       );
                     },
                     child: Container(
@@ -370,7 +371,7 @@ class _FrontpageState extends State<Frontpage> {
                           )),
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
-                            child: Text("Dowload Consession",
+                            child: Text("Fare Calculator",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
@@ -381,7 +382,7 @@ class _FrontpageState extends State<Frontpage> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(left: 5, bottom: 6),
-                                child: Text("Quick dowload your consession",
+                                child: Text("Calculate your Fare",
                                     style: TextStyle(
                                         fontSize: 9,
                                         fontWeight: FontWeight.w600,
@@ -406,6 +407,8 @@ class _FrontpageState extends State<Frontpage> {
               SizedBox(
                 height: 30,
               ),
+             
+                  
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
@@ -497,7 +500,7 @@ class _FrontpageState extends State<Frontpage> {
                       Row(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.94,
+                            width: MediaQuery.of(context).size.width * 0.90,
                             child: Text(
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                               style: TextStyle(
@@ -586,7 +589,7 @@ class _FrontpageState extends State<Frontpage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.94,
+                            width: MediaQuery.of(context).size.width * 0.90,
                             child: Text(
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                               style: TextStyle(

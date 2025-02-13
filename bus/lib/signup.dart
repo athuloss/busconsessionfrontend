@@ -2,6 +2,7 @@ import 'package:bus/bottom.dart';
 import 'package:bus/login.dart';
 import 'package:bus/variables.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -56,7 +57,6 @@ class _SignupState extends State<Signup> {
       body: Padding(
         padding: EdgeInsets.all(20),
         child: ListView(
-       
           children: [
             // Padding(
             //   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -109,7 +109,7 @@ class _SignupState extends State<Signup> {
               ),
             ),
             TextField(
-               obscureText: true,
+              obscureText: true,
               controller: password,
               decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -150,7 +150,7 @@ class _SignupState extends State<Signup> {
             SizedBox(
               height: 20,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -160,11 +160,17 @@ class _SignupState extends State<Signup> {
                       color: Colors.black,
                       fontSize: 13),
                 ),
-                Text("Login",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 0, 40, 78),
-                        fontSize: 13)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Loginpage()));
+                  },
+                  child: Text("Login",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 0, 40, 78),
+                          fontSize: 13)),
+                ),
               ],
             ),
           ],

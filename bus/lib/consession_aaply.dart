@@ -15,16 +15,60 @@ class Consession extends StatefulWidget {
 }
 
 class _ConsessionState extends State<Consession> {
-  File? _profileImage;
-  File? _signatureImage;
-  final ImagePicker _picker = ImagePicker();
-
   var fullname = TextEditingController();
   var address = TextEditingController();
   var age = TextEditingController();
   var collegename = TextEditingController();
   var from = TextEditingController();
   var to = TextEditingController();
+  var dateofbirth = TextEditingController();
+  var parentname = TextEditingController();
+  var course = TextEditingController();
+  var klno = TextEditingController();
+  var kilometers = TextEditingController();
+
+  Future<void> sendData(BuildContext context) async {
+    Uri url_ = Uri.parse(url + 'add_student/');
+
+    var request = http.MultipartRequest('POST', url_);
+
+    request.fields['student_name'] = fullname.text;
+    request.fields['address'] = address.text;
+    request.fields['date_of_birth'] = dateofbirth.text;
+    request.fields['parent_name'] = parentname.text;
+    request.fields['age'] = age.text;
+    request.fields['education_center_name'] = collegename.text;
+    request.fields['travelling_from'] = from.text;
+    request.fields['travelling_to'] = to.text;
+    request.fields['course'] = course.text;
+    request.fields['kl_no'] = klno.text;
+    request.fields['kilometers'] = kilometers.text;
+
+    if (_profileImage != null && _profileImage!.path.isNotEmpty) {
+      request.files.add(
+        await http.MultipartFile.fromPath('student_photo', _profileImage!.path),
+      );
+    }
+
+    if (_signatureImage != null && _signatureImage!.path.isNotEmpty) {
+      request.files.add(
+        await http.MultipartFile.fromPath('student_sign', _signatureImage!.path),
+      );
+    }
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      final responseJson = await response.stream.bytesToString();
+      final jsonData = json.decode(responseJson);
+    } else {
+      print('Failed to submit complaint. Status code: ${response.statusCode}');
+    }
+  }
+
+  File? _profileImage;
+  File? _signatureImage;
+  final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImage(ImageSource source, bool isProfile) async {
     final pickedFile = await _picker.pickImage(source: source);
@@ -36,58 +80,6 @@ class _ConsessionState extends State<Consession> {
           _signatureImage = File(pickedFile.path);
         }
       });
-    }
-  }
-
-  Future<void> sendData(BuildContext context) async {
-    Uri url_ = Uri.parse(url + 'add_student_details/');
-
-    var request = http.MultipartRequest('POST', url_);
-
-    request.fields['student_name'] = fullname.text;
-    request.fields['address'] = address.text;
-    request.fields['date_of_birth'] = age.text;
-    request.fields['education_center_name'] = collegename.text;
-    request.fields['travelling_from'] = from.text;
-    request.fields['travelling_to'] = to.text;
-
-    if (_profileImage != null) {
-      request.files.add(
-        await http.MultipartFile.fromPath(
-          'profile_image',
-          _profileImage!.path,
-        ),
-      );
-    }
-
-    if (_signatureImage != null) {
-      request.files.add(
-        await http.MultipartFile.fromPath(
-          'signature_image',
-          _signatureImage!.path,
-        ),
-      );
-    }
-
-    var response = await request.send();
-    try {
-      if (response.statusCode == 200) {
-        final responseJson = await response.stream.bytesToString();
-        final jsonData = json.decode(responseJson);
-
-        if (jsonData['success'] == 'yes') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Frontpage()),
-          );
-        } else {
-          print('Error: ${jsonData['message']}');
-        }
-      } else {
-        print('Failed to send data. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error sending data: $e');
     }
   }
 
@@ -174,6 +166,33 @@ class _ConsessionState extends State<Consession> {
                   height: 20,
                 ),
                 TextField(
+                  controller: parentname,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: Color(0xFF38A3A5),
+                      ),
+                      hintText: "Enter your Parent name",
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: Color.fromARGB(255, 220, 218, 218),
+                      )),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Color.fromARGB(255, 220, 218, 218),
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ))),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
                   controller: address,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.local_post_office_sharp,
@@ -223,10 +242,58 @@ class _ConsessionState extends State<Consession> {
                   height: 20,
                 ),
                 TextField(
+                  controller: dateofbirth,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.numbers, color: Color(0xFF38A3A5)),
+                      hintText: "Enter your date of birth",
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: Color.fromARGB(255, 220, 218, 218),
+                      )),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Color.fromARGB(255, 220, 218, 218),
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ))),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
                   controller: collegename,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.school, color: Color(0xFF38A3A5)),
-                      hintText: "Enter college name",
+                      hintText: "Enter College name",
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                        color: Color.fromARGB(255, 220, 218, 218),
+                      )),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Color.fromARGB(255, 220, 218, 218),
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ))),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: course,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.school, color: Color(0xFF38A3A5)),
+                      hintText: "Enter Course name",
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
                       contentPadding: EdgeInsets.symmetric(vertical: 20),
@@ -277,6 +344,54 @@ class _ConsessionState extends State<Consession> {
                       prefixIcon:
                           Icon(Icons.location_pin, color: Color(0xFF38A3A5)),
                       hintText: "To",
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 220, 218, 218),
+                          width: 1.0,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Color.fromARGB(255, 220, 218, 218),
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ))),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: kilometers,
+                  decoration: InputDecoration(
+                      prefixIcon:
+                          Icon(Icons.location_pin, color: Color(0xFF38A3A5)),
+                      hintText: "Enter kilometers",
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color.fromARGB(255, 220, 218, 218),
+                          width: 1.0,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Color.fromARGB(255, 220, 218, 218),
+                        width: 1.0,
+                        style: BorderStyle.solid,
+                      ))),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: klno,
+                  decoration: InputDecoration(
+                      prefixIcon:
+                          Icon(Icons.location_pin, color: Color(0xFF38A3A5)),
+                      hintText: "Enter Kl number",
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
                       contentPadding: EdgeInsets.symmetric(vertical: 20),

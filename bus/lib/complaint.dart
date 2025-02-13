@@ -47,7 +47,7 @@ class _ComplaintState extends State<Complaint> {
   }
 
   File? _profileImage;
-  File? _signatureImage;
+
 
   final ImagePicker _picker = ImagePicker();
 
@@ -58,7 +58,7 @@ class _ComplaintState extends State<Complaint> {
         if (isProfile) {
           _profileImage = File(pickedFile.path);
         } else {
-          _signatureImage = File(pickedFile.path);
+          
         }
       });
     }
@@ -180,7 +180,14 @@ class _ComplaintState extends State<Complaint> {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
+            ElevatedButton(  style: ButtonStyle(
+                        padding: WidgetStateProperty.all(
+                            EdgeInsets.symmetric(horizontal: 70, vertical: 16)),
+                        backgroundColor:
+                            WidgetStateProperty.all(Color(0xFF38A3A5)),
+                        shape: WidgetStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)))),
                 onPressed: () {
                   submitComplaint();
                 },
