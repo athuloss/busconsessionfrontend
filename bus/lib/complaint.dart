@@ -48,7 +48,6 @@ class _ComplaintState extends State<Complaint> {
 
   File? _profileImage;
 
-
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImage(ImageSource source, bool isProfile) async {
@@ -57,9 +56,7 @@ class _ComplaintState extends State<Complaint> {
       setState(() {
         if (isProfile) {
           _profileImage = File(pickedFile.path);
-        } else {
-          
-        }
+        } else {}
       });
     }
   }
@@ -67,16 +64,15 @@ class _ComplaintState extends State<Complaint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
-            backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         title: Text("Complaint files",
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
       ),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child: ListView(
           children: [
             GestureDetector(
               onTap: () async {
@@ -183,22 +179,25 @@ class _ComplaintState extends State<Complaint> {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(  style: ButtonStyle(
-                        padding: WidgetStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 70, vertical: 16)),
-                        backgroundColor:
-                            WidgetStateProperty.all(Color(0xFF38A3A5)),
-                        shape: WidgetStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)))),
+            ElevatedButton(
+                style: ButtonStyle(
+                    padding: WidgetStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 40, vertical: 16)),
+                    backgroundColor: WidgetStateProperty.all(Color(0xFF38A3A5)),
+                    shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)))),
                 onPressed: () {
                   submitComplaint();
                 },
-                child: Text("Submit", style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      ),))
+                child: Text(
+                  "Submit",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ))
           ],
         ),
       ),
