@@ -366,7 +366,7 @@ class _ConsessionState extends State<Consession> {
                   controller: kilometers,
                   decoration: InputDecoration(
                       prefixIcon:
-                          Icon(Icons.location_pin, color: Color(0xFF38A3A5)),
+                          Icon(Icons.numbers, color: Color(0xFF38A3A5)),
                       hintText: "Enter kilometers",
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
@@ -390,7 +390,7 @@ class _ConsessionState extends State<Consession> {
                   controller: klno,
                   decoration: InputDecoration(
                       prefixIcon:
-                          Icon(Icons.location_pin, color: Color(0xFF38A3A5)),
+                          Icon(Icons.numbers, color: Color(0xFF38A3A5)),
                       hintText: "Enter Kl number",
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 215, 215, 215)),

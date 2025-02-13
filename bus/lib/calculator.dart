@@ -20,9 +20,11 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     return Scaffold(
    appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text("Fare Calculator",
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

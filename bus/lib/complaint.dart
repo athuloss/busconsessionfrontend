@@ -67,10 +67,13 @@ class _ComplaintState extends State<Complaint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
+            backgroundColor: Colors.white,
         title: Text("Complaint files",
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -191,7 +194,11 @@ class _ComplaintState extends State<Complaint> {
                 onPressed: () {
                   submitComplaint();
                 },
-                child: Text("Submit"))
+                child: Text("Submit", style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),))
           ],
         ),
       ),

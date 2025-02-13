@@ -4,6 +4,7 @@ import 'package:bus/complaint.dart';
 import 'package:bus/consession_aaply.dart';
 import 'package:bus/login.dart';
 import 'package:bus/profile.dart';
+import 'package:bus/trackcomplaint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ionicons/ionicons.dart';
@@ -281,68 +282,75 @@ class _FrontpageState extends State<Frontpage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    // height: 200,
-                    width: MediaQuery.of(context).size.width * 0.43,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color.fromARGB(255, 137, 137, 137)
-                                .withOpacity(0.2),
-                            spreadRadius: 0.3, // How much the shadow spreads
-                            blurRadius: 3, // Blur effect for smoothness
-                            offset: Offset(0.5,
-                                0.5), // Moves shadow slightly for depth effect
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TrackComplaints()));
+                    },
+                    child: Container(
+                      // height: 200,
+                      width: MediaQuery.of(context).size.width * 0.43,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color.fromARGB(255, 137, 137, 137)
+                                  .withOpacity(0.2),
+                              spreadRadius: 0.3, // How much the shadow spreads
+                              blurRadius: 3, // Blur effect for smoothness
+                              offset: Offset(0.5,
+                                  0.5), // Moves shadow slightly for depth effect
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12),
+                          color: Color.fromARGB(255, 255, 255, 255)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                              child: Image.asset(
+                            "asset/images/rb_1119.png",
+                            width: MediaQuery.of(context).size.width * 0.30,
+                          )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text("Track Complaints",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 5, bottom: 6),
+                                child: Text("Easy Way to track your complaints",
+                                    style: TextStyle(
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color.fromARGB(
+                                            255, 159, 160, 159))),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 5, bottom: 6),
+                                child: CircleAvatar(
+                                    radius: 9,
+                                    child: Icon(Icons.arrow_forward,
+                                        size: 14, color: Color(0xFF38A3A5))),
+                              ),
+                            ],
                           )
                         ],
-                        borderRadius: BorderRadius.circular(12),
-                        color: Color.fromARGB(255, 255, 255, 255)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                            child: Image.asset(
-                          "asset/images/rb_1119.png",
-                          width: MediaQuery.of(context).size.width * 0.30,
-                        )),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text("Track Complaints",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color.fromARGB(255, 0, 0, 0))),
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 5, bottom: 6),
-                              child: Text("Easy Way to track your complaints",
-                                  style: TextStyle(
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          Color.fromARGB(255, 159, 160, 159))),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 5, bottom: 6),
-                              child: CircleAvatar(
-                                  radius: 9,
-                                  child: Icon(Icons.arrow_forward,
-                                      size: 14, color: Color(0xFF38A3A5))),
-                            ),
-                          ],
-                        )
-                      ],
+                      ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Calculator()),
+                        MaterialPageRoute(builder: (context) => Calculator()),
                       );
                     },
                     child: Container(
@@ -407,8 +415,6 @@ class _FrontpageState extends State<Frontpage> {
               SizedBox(
                 height: 30,
               ),
-             
-                  
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
