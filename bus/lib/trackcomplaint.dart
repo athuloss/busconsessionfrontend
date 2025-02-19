@@ -19,6 +19,8 @@ class _TrackComplaintsState extends State<TrackComplaints> {
     Uri url_ = Uri.parse(url + 'fetch_Complaints/');
 
     var request = http.MultipartRequest('POST', url_);
+    request.fields['user'] = username;
+
 
     var response = await request.send();
 
