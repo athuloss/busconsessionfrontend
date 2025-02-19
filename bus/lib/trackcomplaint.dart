@@ -19,7 +19,7 @@ class _TrackComplaintsState extends State<TrackComplaints> {
     Uri url_ = Uri.parse(url + 'fetch_Complaints/');
     var request = http.MultipartRequest('POST', url_);
 
-    // Send the username in the POST request
+
     request.fields['username'] = username;
 
     try {

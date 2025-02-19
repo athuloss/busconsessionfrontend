@@ -20,7 +20,7 @@ class _BottomnavState extends State<Bottomnav> {
     Frontpage(),
     Consession(),
     Profile(),
-    Cardconsession()
+    CardConcession()
   ];
   @override
   Widget build(BuildContext context) {
