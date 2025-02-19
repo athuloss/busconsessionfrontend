@@ -16,6 +16,7 @@ class _ComplaintState extends State<Complaint> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController vehicleNumberController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController phonenumber = TextEditingController();
 
   // API endpoint
 
@@ -27,6 +28,7 @@ class _ComplaintState extends State<Complaint> {
     request.fields['complaint_Title'] = titleController.text;
     request.fields['kl_no'] = vehicleNumberController.text;
     request.fields['complaint_description'] = descriptionController.text;
+    request.fields['phonenumber'] = phonenumber.text;
     request.fields['user'] = username;
 
     // Check if _profileImage is not null before accessing its path
@@ -160,6 +162,34 @@ class _ComplaintState extends State<Complaint> {
                   child: Icon(Icons.description, color: Color(0xFF38A3A5)),
                 ),
                 hintText: "Description",
+                isDense: true,
+                hintStyle: TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 1.0,
+                      style: BorderStyle.solid,
+                      color: Color.fromARGB(255, 220, 218, 218)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Color.fromARGB(255, 220, 218, 218),
+                      width: 1.0,
+                      style: BorderStyle.solid),
+                ),
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: phonenumber,
+              // maxLines: 5,
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(bottom: 96.0),
+                  child: Icon(Icons.phone, color: Color(0xFF38A3A5)),
+                ),
+                hintText: "Phonenumber",
                 isDense: true,
                 hintStyle: TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
                 contentPadding:
