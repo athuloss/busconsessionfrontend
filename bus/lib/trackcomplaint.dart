@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:bus/variables.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:bus/variables.dart'; // This file should define `url` and `username`
 
 class TrackComplaints extends StatefulWidget {
-  const TrackComplaints({super.key});
+  const TrackComplaints({Key? key}) : super(key: key);
 
   @override
   State<TrackComplaints> createState() => _TrackComplaintsState();
@@ -17,54 +17,93 @@ class _TrackComplaintsState extends State<TrackComplaints> {
 
   Future<void> fetchComplaints() async {
     Uri url_ = Uri.parse(url + 'fetch_Complaints/');
-
     var request = http.MultipartRequest('POST', url_);
 
-request.fields['user'] = username;
+    // Send the username in the POST request
+    request.fields['username'] = username;
 
-    request.fields['user'] = username;
+    try {
+      var response = await request.send();
+      final responseJson = await response.stream.bytesToString();
+      final jsonData = json.decode(responseJson);
 
-
-    var response = await request.send();
-
-   final responseJson = await response.stream.bytesToString();
-   final jsonData = json.decode(responseJson);
-
-    setState(() {
-      complaints = jsonData;
-    }); // Update UI if needed
+      setState(() {
+        complaints = jsonData;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = "Error fetching data: $e";
+        isLoading = false;
+      });
+      print(errorMessage);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    print("--------------");
     fetchComplaints();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Complaints")),
-        body:Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
-          child: ListView(
-            children: [
-              for (var i in complaints)
-                Column(
-                  children: [
-
-                   Text(i['complaint_Title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
-                 Text(i['complaint_description'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
-                 Text(i[ 'complainted_date'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
-                 Text(i[  'bus_no'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
-                 Text(i[  'kl_no'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
-                 Text(i[  'phonenumber'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)
-                  ],
-                )
-            ],
-          ),
-        ));
+      appBar: AppBar(title: const Text("Complaints")),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : errorMessage.isNotEmpty
+                ? Center(child: Text(errorMessage))
+                : ListView.builder(
+                    itemCount: complaints.length,
+                    itemBuilder: (context, index) {
+                      var complaint = complaints[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            complaint['complaint_Title'] ?? 'No Title',
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            complaint['complaint_description'] ?? 'No Description',
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            complaint['complainted_date'] ?? '',
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Bus No: ' + (complaint['bus_no'] ?? ''),
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'KL No: ' + (complaint['kl_no']?.toString() ?? ''),
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Phone: ' + (complaint['phonenumber']?.toString() ?? ''),
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
+                          const Divider(thickness: 1, height: 30),
+                        ],
+                      );
+                    },
+                  ),
+      ),
+    );
   }
 }
