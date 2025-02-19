@@ -19,11 +19,11 @@ class _TrackComplaintsState extends State<TrackComplaints> {
     Uri url_ = Uri.parse(url + 'fetch_Complaints/');
 
     var request = http.MultipartRequest('POST', url_);
-
+request.fields['user'] = username;
     var response = await request.send();
 
-    final responseJson = await response.stream.bytesToString();
-    final jsonData = json.decode(responseJson);
+   final responseJson = await response.stream.bytesToString();
+   final jsonData = json.decode(responseJson);
 
     setState(() {
       complaints = jsonData;
@@ -47,9 +47,16 @@ class _TrackComplaintsState extends State<TrackComplaints> {
           child: ListView(
             children: [
               for (var i in complaints)
-                ListTile(
-                  title: Text(i['complaint_Title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
-                  subtitle: Text(i['complaint_description'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                Column(
+                  children: [
+
+                   Text(i['complaint_Title'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                 Text(i['complaint_description'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                 Text(i[ 'complainted_date'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                 Text(i[  'bus_no'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                 Text(i[  'kl_no'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                 Text(i[  'phonenumber'],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)
+                  ],
                 )
             ],
           ),
