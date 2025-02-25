@@ -31,7 +31,7 @@ class _ConsessionState extends State<Consession> {
     Uri url_ = Uri.parse(url + 'add_student/');
 
     var request = http.MultipartRequest('POST', url_);
-    // request.fields['username'] = username;  
+    request.fields['username'] = username;  
     request.fields['student_name'] = fullname.text;
     request.fields['address'] = address.text;
     request.fields['date_of_birth'] = dateofbirth.text;
