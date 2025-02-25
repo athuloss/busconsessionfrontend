@@ -61,6 +61,24 @@ class _ConsessionState extends State<Consession> {
     if (response.statusCode == 200) {
       final responseJson = await response.stream.bytesToString();
       final jsonData = json.decode(responseJson);
+        setState(() {
+      fullname.clear();
+      address.clear();
+      dateofbirth.clear();
+      parentname.clear();
+      age.clear();
+      collegename.clear();
+      from.clear();
+      to.clear();
+      course.clear();
+      klno.clear();
+      kilometers.clear();
+      _profileImage = null;
+      _signatureImage = null;
+    });
+  ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Form submitted successfully!"))
+    );
     } else {
       print('Failed to submit complaint. Status code: ${response.statusCode}');
     }

@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:bus/variables.dart'; // Imports url and username variables
 import 'package:flutter/material.dart';
+import 'package:bus/variables.dart'; // Ensure this contains your url and username variables.
 import 'package:http/http.dart' as http;
 
 class CardConcession extends StatefulWidget {
@@ -11,16 +11,16 @@ class CardConcession extends StatefulWidget {
 }
 
 class _CardConcessionState extends State<CardConcession> {
-  List concession = [];
+  List<dynamic> concession = [];
   bool isLoading = true;
   String errorMessage = '';
 
   Future<void> fetchConcession() async {
     // Build the endpoint URL
     Uri url_ = Uri.parse(url + 'fetch_consession/');
+
     // Create a Multipart POST request
     var request = http.MultipartRequest('POST', url_);
-    
     // Send the username for filtering
     request.fields['username'] = username;
 
@@ -33,7 +33,7 @@ class _CardConcessionState extends State<CardConcession> {
         concession = jsonData;
         isLoading = false;
       });
-      print(concession);
+      print("Fetched Data: $concession");
     } catch (e) {
       setState(() {
         errorMessage = "Error fetching data: $e";
@@ -47,6 +47,20 @@ class _CardConcessionState extends State<CardConcession> {
   void initState() {
     super.initState();
     fetchConcession();
+  }
+
+  // Helper widget to display an image if available.
+  Widget displayImage(String imageUrl, {double height = 100, double width = 100}) {
+    if (imageUrl.isNotEmpty) {
+      return Image.network(
+        imageUrl,
+        height: height,
+        width: width,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return const SizedBox(); // or a placeholder widget
+    }
   }
 
   @override
@@ -94,7 +108,23 @@ class _CardConcessionState extends State<CardConcession> {
                                     "Course: ${cardData['course'] ?? ''}",
                                     style: const TextStyle(fontSize: 16),
                                   ),
-                                  // Add additional fields as needed.
+                                  const SizedBox(height: 10),
+                                  // Display images in a column or grid:
+                                  const Text("Images:", style: TextStyle(fontWeight: FontWeight.bold)),
+                                  const SizedBox(height: 5),
+                                  // For example, displaying them in a wrap widget:
+                                  Wrap(
+                                    spacing: 10,
+                                    runSpacing: 10,
+                                    children: [
+                                      displayImage(cardData['student_photo'] ?? '', height: 80, width: 80),
+                                      displayImage(cardData['student_sign'] ?? '', height: 80, width: 80),
+                                      displayImage(cardData['principal_sign'] ?? '', height: 80, width: 80),
+                                      displayImage(cardData['principal_seal'] ?? '', height: 80, width: 80),
+                                      displayImage(cardData['rto_sign'] ?? '', height: 80, width: 80),
+                                      displayImage(cardData['rto_seal'] ?? '', height: 80, width: 80),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
