@@ -11,9 +11,26 @@ class _CalculatorState extends State<Calculator> {
   TextEditingController distanceCtrl = TextEditingController();
   String data = "Amount will be displayed here";
 
-  double cfare() {
-    double dis = double.tryParse(distanceCtrl.text) ?? 0;
-    return (dis / 2.5) * 1;
+  double cfare(double distance) {
+    if (distance <= 2.5) {
+      return 1;
+    } else if (distance <= 5) {
+      return 2;
+    } else if (distance <= 7.5) {
+      return 2;
+    } else if (distance <= 10) {
+      return 3;
+    } else if (distance <= 12) {
+      return 3;
+    } else if (distance <= 17.5) {
+      return 3;
+    } else if (distance <= 27.5) {
+      return 4;
+    } else if (distance <= 37.5) {
+      return 5;
+    } else {
+      return 6;
+    }
   }
 
   @override
@@ -29,7 +46,6 @@ class _CalculatorState extends State<Calculator> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               controller: distanceCtrl,
@@ -51,7 +67,7 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ),
             ),
-            SizedBox(height: 20), // Space between TextField and Button
+            SizedBox(height: 20),
             ElevatedButton(
               style: ButtonStyle(
                   padding: WidgetStateProperty.all(
@@ -62,7 +78,8 @@ class _CalculatorState extends State<Calculator> {
                           borderRadius: BorderRadius.circular(20)))),
               onPressed: () {
                 setState(() {
-                  data = "Total Fare: ₹${cfare().toStringAsFixed(2)}";
+                  double distance = double.tryParse(distanceCtrl.text) ?? 0;
+                  data = "Total Fare: ₹${cfare(distance).toStringAsFixed(2)}";
                 });
               },
               child: Text(
@@ -74,7 +91,7 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ),
             ),
-            SizedBox(height: 20), // Space between Button and Result Text
+            SizedBox(height: 20),
             Text(
               data,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
