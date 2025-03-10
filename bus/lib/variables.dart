@@ -1,2 +1,2 @@
-var url = 'http://192.168.1.7:8000/';
+var url = 'http://192.168.1.10:8000/';
 var username = '';
