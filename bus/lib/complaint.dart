@@ -76,36 +76,37 @@ class _ComplaintState extends State<Complaint> {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            GestureDetector(
-              onTap: () async {
-                await _pickImage(
-                    ImageSource.gallery, true); // true for profile image
-              },
-              child: Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white, // Solid white background
-                  border: Border.all(
-                    color: Color.fromARGB(255, 249, 241, 241), // Black border
-                    width: 2.0, // Border thickness
-                  ),
-                ),
-                child: ClipOval(
-                  child: _profileImage != null
-                      ? Image.file(
-                          _profileImage!,
-                          fit: BoxFit.cover,
-                        )
-                      : Icon(
-                          Icons.add_a_photo,
-                          size: 30,
-                          color: Colors.black, // Black icon color
-                        ),
-                ),
-              ),
+           GestureDetector(
+  onTap: () async {
+    await _pickImage(ImageSource.gallery, true);
+  },
+  child: Container(
+    width: 70,
+    height: 70,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white,
+      border: Border.all(
+        color: Color.fromARGB(255, 249, 241, 241),
+        width: 2.0,
+      ),
+    ),
+    child: ClipOval(
+      child: _profileImage != null
+          ? Image.file(
+              _profileImage!,
+              width: 70,
+              height: 70,
+              fit: BoxFit.cover,
+            )
+          : Icon(
+              Icons.add_a_photo,
+              size: 30,
+              color: Colors.black,
             ),
+    ),
+  ),
+),
             SizedBox(
               height: 20,
             ),
